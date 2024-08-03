@@ -97,6 +97,17 @@ class Ball:
     def getRect(self):
         return self.ball
 
+class Obstacle:
+    def __init__(self, posx, posy, width, height, color):
+        self.rect = pygame.Rect(posx, posy, width, height)
+        self.color = color
+
+    def display(self):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def getRect(self):
+        return self.rect
+
 def menu():
     running = True
     while running:
@@ -110,9 +121,14 @@ def menu():
         option2 = font20.render("2. Duplicate Ball Mode", True, WHITE)
         option2_rect = option2.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
 
+        option3 = font20.render("3. Obstacle Mode", True, WHITE)
+        option3_rect = option3.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
+
         screen.blit(title, title_rect)
         screen.blit(option1, option1_rect)
         screen.blit(option2, option2_rect)
+        screen.blit(option3, option3_rect)
+
 
         pygame.display.flip()
 
@@ -125,6 +141,8 @@ def menu():
                     return "increase_speed"
                 if event.key == pygame.K_2:
                     return "duplicate_ball"
+                if event.key == pygame.K_3:
+                    return "obstacle"
 
         clock.tick(FPS)
 
@@ -141,6 +159,11 @@ def main():
             increase_speed_mode()
         elif game_mode == "duplicate_ball":
             duplicate_ball_mode()
+        elif game_mode == "obstacle":
+            obstacle_mode()
+        else:
+            print("Invalid option")
+
 
 def increase_speed_mode():
     running = True
@@ -276,6 +299,90 @@ def duplicate_ball_mode():
         clock.tick(FPS)
 
     pygame.quit()
+
+
+def obstacle_mode():
+    running = True
+    
+    # Initialize Strikers, Ball, and Obstacles
+    geek1 = Striker(20, 0, 10, 100, 10, GREEN)
+    geek2 = Striker(WIDTH - 30, 0, 10, 100, 10, GREEN)
+    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 7, WHITE)
+    
+    # Define some obstacles
+    obstacles = [
+        Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, WHITE),
+        Obstacle(WIDTH // 2, HEIGHT // 2, 20, 100, WHITE)
+    ]
+    
+    listOfGeeks = [geek1, geek2]
+    geek1Score, geek2Score = 0, 0
+    geek1YFac, geek2YFac = 0, 0
+
+    while running:
+        screen.fill(BLACK)
+        
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return  # Exit to the main menu
+                if event.key == pygame.K_UP:
+                    geek2YFac = -1
+                if event.key == pygame.K_DOWN:
+                    geek2YFac = 1
+                if event.key == pygame.K_w:
+                    geek1YFac = -1
+                if event.key == pygame.K_s:
+                    geek1YFac = 1
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    geek2YFac = 0
+                if event.key == pygame.K_w or event.key == pygame.K_s:
+                    geek1YFac = 0
+        
+        # Collision detection with obstacles
+        for obstacle in obstacles:
+            if pygame.Rect.colliderect(ball.getRect(), obstacle.getRect()):
+                ball.hit()
+        
+        # Collision detection with strikers
+        for geek in listOfGeeks:
+            if pygame.Rect.colliderect(ball.getRect(), geek.getRect()):
+                ball.hit()
+        
+        # Update positions
+        geek1.update(geek1YFac)
+        geek2.update(geek2YFac)
+        point = ball.update()
+        
+        # Check if a point was scored
+        if point == -1:
+            geek1Score += 1
+        elif point == 1:
+            geek2Score += 1
+        
+        if point:
+            ball.reset()
+        
+        # Display obstacles
+        for obstacle in obstacles:
+            obstacle.display()
+        
+        # Display other elements
+        geek1.display()
+        geek2.display()
+        ball.display()
+        
+        geek1.displayScore("Geek_1 : ", geek1Score, 100, 20, WHITE)
+        geek2.displayScore("Geek_2 : ", geek2Score, WIDTH - 100, 20, WHITE)
+        
+        pygame.display.update()
+        clock.tick(FPS)
+
+
 
 if __name__ == "__main__":
     main()
