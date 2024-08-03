@@ -34,15 +34,15 @@ class Striker:
         self.geek = pygame.draw.rect(screen, self.color, self.geekRect)
 
     def update(self, yFac):
-        self.posy = self.posy + self.speed*yFac
+        self.posy = self.posy + self.speed * yFac
         if self.posy <= 0:
             self.posy = 0
         elif self.posy + self.height >= HEIGHT:
-            self.posy = HEIGHT-self.height
+            self.posy = HEIGHT - self.height
         self.geekRect = (self.posx, self.posy, self.width, self.height)
 
     def displayScore(self, text, score, x, y, color):
-        text = font20.render(text+str(score), True, color)
+        text = font20.render(text + str(score), True, color)
         textRect = text.get_rect()
         textRect.center = (x, y)
         screen.blit(text, textRect)
@@ -56,6 +56,7 @@ class Ball:
         self.posy = posy
         self.radius = radius
         self.speed = speed
+        self.initial_speed = speed  # Store the initial speed
         self.color = color
         self.xFac = 1
         self.yFac = -1
@@ -67,8 +68,8 @@ class Ball:
         self.ball = pygame.draw.circle(screen, self.color, (self.posx, self.posy), self.radius)
 
     def update(self):
-        self.posx += self.speed*self.xFac
-        self.posy += self.speed*self.yFac
+        self.posx += self.speed * self.xFac
+        self.posy += self.speed * self.yFac
         if self.posy <= 0 or self.posy >= HEIGHT:
             self.yFac *= -1
         if self.posx <= 0 and self.firstTime:
@@ -81,16 +82,17 @@ class Ball:
             return 0
 
     def reset(self):
-        self.posx = WIDTH//2
-        self.posy = HEIGHT//2
+        self.posx = WIDTH // 2
+        self.posy = HEIGHT // 2
         self.xFac *= -1
         self.firstTime = 1
+        self.speed = self.initial_speed  # Reset speed to initial value
 
     def hit(self, increase_speed=False):
         self.xFac *= -1
         if increase_speed:
-            self.speed += 1  # Increase speed each time it hits a paddle
-        self.hit_count += 1  # Track hits for duplication mode
+            self.speed += 1
+        self.hit_count += 1
 
     def getRect(self):
         return self.ball
@@ -130,14 +132,15 @@ def menu():
     return None
 
 def main():
-    game_mode = menu()
-    if not game_mode:
-        return
+    while True:
+        game_mode = menu()
+        if not game_mode:
+            break
 
-    if game_mode == "increase_speed":
-        increase_speed_mode()
-    elif game_mode == "duplicate_ball":
-        duplicate_ball_mode()
+        if game_mode == "increase_speed":
+            increase_speed_mode()
+        elif game_mode == "duplicate_ball":
+            duplicate_ball_mode()
 
 def increase_speed_mode():
     running = True
@@ -157,6 +160,8 @@ def increase_speed_mode():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return  # Exit to the main menu
                 if event.key == pygame.K_UP:
                     geek2YFac = -1
                 if event.key == pygame.K_DOWN:
@@ -218,6 +223,8 @@ def duplicate_ball_mode():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return  # Exit to the main menu
                 if event.key == pygame.K_UP:
                     geek2YFac = -1
                 if event.key == pygame.K_DOWN:
@@ -247,12 +254,11 @@ def duplicate_ball_mode():
                 geek1Score += 1
             elif point == 1:
                 geek2Score += 1
-
             if point:
                 ball.reset()
-            if ball.hit_count >= 5:  # Duplicate ball after hitting paddles 5 times
-                new_balls.append(Ball(ball.posx, ball.posy, ball.radius, ball.speed, WHITE))
+            if ball.hit_count >= 5:
                 ball.hit_count = 0
+                new_balls.append(Ball(ball.posx, ball.posy, ball.radius, ball.speed, WHITE))
             new_balls.append(ball)
 
         balls = new_balls
