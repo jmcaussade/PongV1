@@ -24,7 +24,7 @@ def main():
         elif game_mode == "duplicate_ball_pvc":
             duplicate_ball_mode(points_limit, player_vs_computer=True)
         elif game_mode == "obstacle_pvp":
-            obstacle_mode(player_vs_computer=False)
+            obstacle_mode(points_limit, player_vs_computer=False)
         elif game_mode == "obstacle_pvc":
             obstacle_mode(points_limit, player_vs_computer=True)
         else:
