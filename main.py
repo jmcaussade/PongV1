@@ -374,7 +374,9 @@ def obstacle_mode(player_vs_computer):
 
     obstacles = [
         Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, WHITE),
-        Obstacle(WIDTH // 2, HEIGHT // 2, 20, 100, WHITE)
+        Obstacle(WIDTH // 2, HEIGHT // 2, 20, 100, WHITE),
+        Obstacle(WIDTH - (WIDTH // 4), HEIGHT // 4, 20, 100, WHITE),
+        Obstacle(WIDTH // 2, HEIGHT - (HEIGHT // 6), 200, 20, WHITE)
     ]
 
     geek1Score, geek2Score = 0, 0
