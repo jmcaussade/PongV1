@@ -3,7 +3,17 @@ from Class_Computer_Striker import ComputerStriker
 from Class_Striker import Striker
 from Class_Ball import Ball
 from Class_Object import Obstacle
+import math
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
+
+def calculate_normal(ball_rect, object_rect):
+    # Calculate the normal vector for natural rebound off obstacles
+    ball_center = (ball_rect.centerx, ball_rect.centery)
+    object_center = (object_rect.centerx, object_rect.centery)
+    normal = (ball_center[0] - object_center[0], ball_center[1] - object_center[1])
+    length = math.sqrt(normal[0]**2 + normal[1]**2)
+    normal = (normal[0] / length, normal[1] / length)
+    return normal
 
 def obstacle_mode(game_points, player_vs_computer):
     running = True
@@ -59,10 +69,13 @@ def obstacle_mode(game_points, player_vs_computer):
         # Update the ball
         for obstacle in obstacles:
             if pygame.Rect.colliderect(ball.getRect(), obstacle.getRect()):
+                #normal = calculate_normal(ball.getRect(), obstacle.getRect())
                 ball.hit()
-
-        if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()) or pygame.Rect.colliderect(ball.getRect(), player2_striker.getRect()):
-            ball.hit()
+        # Check for collision with player1's striker
+        if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):
+            ball.hit(striker=player1_striker, increase_speed=False)
+        if pygame.Rect.colliderect(ball.getRect(), player2_striker.getRect()):
+            ball.hit(striker=player2_striker, increase_speed=False)
 
         point = ball.update()
         if point == -1:
