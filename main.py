@@ -11,22 +11,22 @@ pygame.init()
 
 def main():
     while True:
-        game_mode = menu()
+        game_mode, points_limit = menu()
         if not game_mode:
             break
 
         if game_mode == "increase_speed_pvp":
-            increase_speed_mode(player_vs_computer=False)
+            increase_speed_mode(points_limit, player_vs_computer=False)
         elif game_mode == "increase_speed_pvc":
-            increase_speed_mode(player_vs_computer=True)
+            increase_speed_mode(points_limit, player_vs_computer=True)
         elif game_mode == "duplicate_ball_pvp":
-            duplicate_ball_mode(player_vs_computer=False)
+            duplicate_ball_mode(points_limit, player_vs_computer=False)
         elif game_mode == "duplicate_ball_pvc":
-            duplicate_ball_mode(player_vs_computer=True)
+            duplicate_ball_mode(points_limit, player_vs_computer=True)
         elif game_mode == "obstacle_pvp":
             obstacle_mode(player_vs_computer=False)
         elif game_mode == "obstacle_pvc":
-            obstacle_mode(player_vs_computer=True)
+            obstacle_mode(points_limit, player_vs_computer=True)
         else:
             print("Invalid option")
 

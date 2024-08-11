@@ -4,7 +4,7 @@ from Class_Striker import Striker
 from Class_Ball import Ball
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
-def duplicate_ball_mode(player_vs_computer):
+def duplicate_ball_mode(game_points, player_vs_computer):
     running = True
 
     # Initialize the strikers
@@ -21,7 +21,7 @@ def duplicate_ball_mode(player_vs_computer):
 
     balls = [ball]
 
-    while running:
+    while geek1Score <= game_points and geek2Score <= game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -86,4 +86,4 @@ def duplicate_ball_mode(player_vs_computer):
         pygame.display.update()
         clock.tick(FPS)
 
-    pygame.quit()
+    return None

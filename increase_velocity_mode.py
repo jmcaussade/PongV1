@@ -4,7 +4,7 @@ from Class_Striker import Striker
 from Class_Ball import Ball
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
-def increase_speed_mode(player_vs_computer):
+def increase_speed_mode(game_points, player_vs_computer):
     running = True
 
     # Initialize the strikers
@@ -19,7 +19,7 @@ def increase_speed_mode(player_vs_computer):
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
 
-    while running:
+    while geek1Score <= game_points and geek2Score <= game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -71,4 +71,4 @@ def increase_speed_mode(player_vs_computer):
         pygame.display.update()
         clock.tick(FPS)
 
-    pygame.quit()
+    return None
