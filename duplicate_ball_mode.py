@@ -53,8 +53,10 @@ def duplicate_ball_mode(game_points, player_vs_computer):
         # Update the balls
         new_balls = []
         for ball in balls:
-            if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()) or pygame.Rect.colliderect(ball.getRect(), player2_striker.getRect()):
-                ball.hit()
+            if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):
+                ball.hit(striker=player1_striker, increase_speed=False)
+            if pygame.Rect.colliderect(ball.getRect(), player2_striker.getRect()):
+                ball.hit(striker=player2_striker, increase_speed=False)
 
             point = ball.update()
             if point == -1:

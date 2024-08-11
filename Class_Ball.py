@@ -1,6 +1,6 @@
 import pygame
 
-from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
+from game_setup import WIDTH, HEIGHT, screen
 
 
 class Ball:
@@ -41,10 +41,26 @@ class Ball:
         self.firstTime = 1
         self.speed = self.initial_speed  # Reset speed to initial value
 
-    def hit(self, increase_speed=False):
-        self.xFac *= -1
+    def hit(self, striker, increase_speed=False):
+        # Calculate where the ball hit the striker
+        striker_center = striker.posy + striker.height / 2
+        impact_point = (self.posy - striker_center) / (striker.height / 2)  # Normalize to range [-1, 1]
+
+        # Adjust the ball's angle based on the impact point
+        max_angle = 0.5  # Adjust this value to make the rebound angle more or less steep
+        angle_change = impact_point * max_angle
+
+        # Adjust the ball's direction based on the angle
+        if self.xFac > 0:
+            self.xFac = -1
+        else:
+            self.xFac = 1
+
+        self.yFac = angle_change
+
         if increase_speed:
             self.speed += 1
+
         self.hit_count += 1
 
     def getRect(self):

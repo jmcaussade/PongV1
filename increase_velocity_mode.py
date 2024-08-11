@@ -46,9 +46,9 @@ def increase_speed_mode(game_points, player_vs_computer):
 
         # Check for collision with strikers
         if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):
-            ball.hit(increase_speed=True)
+            ball.hit(striker=player1_striker, increase_speed=True)
         if pygame.Rect.colliderect(ball.getRect(), player2_striker.getRect()):
-            ball.hit(increase_speed=True)
+            ball.hit(striker=player2_striker, increase_speed=True)
 
         # Update ball position and check for scoring
         point = ball.update()
