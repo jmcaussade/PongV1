@@ -3,6 +3,7 @@ import pygame
 from duplicate_ball_mode import duplicate_ball_mode
 from increase_velocity_mode import increase_speed_mode
 from obstacle_mode import obstacle_mode
+from original_mode import original_mode
 from menu import menu
 
 
@@ -27,6 +28,10 @@ def main():
             obstacle_mode(points_limit, player_vs_computer=False)
         elif game_mode == "obstacle_pvc":
             obstacle_mode(points_limit, player_vs_computer=True)
+        elif game_mode == "original_pvp":
+            original_mode(points_limit, player_vs_computer=False)
+        elif game_mode == "original_pvc":
+            original_mode(points_limit, player_vs_computer=True)
         else:
             print("Invalid option")
 

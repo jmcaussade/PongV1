@@ -23,7 +23,7 @@ def display_controls_pvp():
 def display_controls_pvc():
     controls_text = [
         "Controls for Player vs Computer:",
-        "Player 1: Up Arrow / Down Arrow",
+        "Player 1: W (Up) / S (Down)",
         "Computer: Automatically controlled",
         "",
         "Press SPACE to Start"
@@ -91,38 +91,47 @@ def get_points_limit():
 
 
 
-def display_menu():
-    screen.fill(BLACK)
-    title = font40.render("Pong Game", True, WHITE)
-    title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 4))
+# def display_menu():
+#     screen.fill(BLACK)
+#     title = font40.render("Pong Game", True, WHITE)
+#     title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 4))
 
-    option1 = font20.render("1. Increase Speed Mode (Player vs Player)", True, WHITE)
-    option1_rect = option1.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+#     option1 = font20.render("1. Increase Speed Mode (Player vs Player)", True, WHITE)
+#     option1_rect = option1.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
-    option2 = font20.render("2. Duplicate Ball Mode (Player vs Player)", True, WHITE)
-    option2_rect = option2.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+#     option2 = font20.render("2. Duplicate Ball Mode (Player vs Player)", True, WHITE)
+#     option2_rect = option2.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
 
-    option3 = font20.render("3. Obstacle Mode (Player vs Player)", True, WHITE)
-    option3_rect = option3.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
+#     option3 = font20.render("3. Obstacle Mode (Player vs Player)", True, WHITE)
+#     option3_rect = option3.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
 
-    option4 = font20.render("4. Increase Speed Mode (Player vs Computer)", True, WHITE)
-    option4_rect = option4.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 150))
+#     option4 = font20.render("4. Original Mode (Player vs Player)", True, WHITE)
+#     option4_rect = option4.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 150))
 
-    option5 = font20.render("5. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
-    option5_rect = option5.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 200))
+#     option5 = font20.render("5. Increase Speed Mode (Player vs Computer)", True, WHITE)
+#     option5_rect = option5.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 200))
 
-    option6 = font20.render("6. Obstacle Mode (Player vs Computer)", True, WHITE)
-    option6_rect = option6.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 250))
+#     option6 = font20.render("6. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
+#     option6_rect = option6.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 250))
 
-    screen.blit(title, title_rect)
-    screen.blit(option1, option1_rect)
-    screen.blit(option2, option2_rect)
-    screen.blit(option3, option3_rect)
-    screen.blit(option4, option4_rect)
-    screen.blit(option5, option5_rect)
-    screen.blit(option6, option6_rect)
+#     option7 = font20.render("7. Obstacle Mode (Player vs Computer)", True, WHITE)
+#     option7_rect = option7.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 300))
 
-    pygame.display.flip()
+#     option8 = font20.render("8. Original Mode (Player vs Computer)", True, WHITE)
+#     option8_rect = option8.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 350))
+
+#     screen.blit(title, title_rect)
+#     screen.blit(option1, option1_rect)
+#     screen.blit(option2, option2_rect)
+#     screen.blit(option3, option3_rect)
+#     screen.blit(option4, option4_rect)
+#     screen.blit(option5, option5_rect)
+#     screen.blit(option6, option6_rect)
+#     screen.blit(option7, option7_rect)
+#     screen.blit(option8, option8_rect)
+
+
+#     pygame.display.flip()
 
 def menu():
     while True:
@@ -139,14 +148,20 @@ def menu():
         option3 = font20.render("3. Obstacle Mode (Player vs Player)", True, WHITE)
         option3_rect = option3.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
 
-        option4 = font20.render("4. Increase Speed Mode (Player vs Computer)", True, WHITE)
+        option4 = font20.render("4. Original Mode (Player vs Player)", True, WHITE)
         option4_rect = option4.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 150))
 
-        option5 = font20.render("5. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
+        option5 = font20.render("5. Increase Speed Mode (Player vs Computer)", True, WHITE)
         option5_rect = option5.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 200))
 
-        option6 = font20.render("6. Obstacle Mode (Player vs Computer)", True, WHITE)
+        option6 = font20.render("6. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
         option6_rect = option6.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 250))
+
+        option7 = font20.render("7. Obstacle Mode (Player vs Computer)", True, WHITE)
+        option7_rect = option7.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 300))
+
+        option8 = font20.render("8. Original Mode (Player vs Computer)", True, WHITE)
+        option8_rect = option8.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 350))
 
         screen.blit(title, title_rect)
         screen.blit(option1, option1_rect)
@@ -155,6 +170,10 @@ def menu():
         screen.blit(option4, option4_rect)
         screen.blit(option5, option5_rect)
         screen.blit(option6, option6_rect)
+        screen.blit(option7, option7_rect)
+        screen.blit(option8, option8_rect)
+
+
 
         pygame.display.flip()
 
@@ -171,11 +190,15 @@ def menu():
                 elif event.key == pygame.K_3:
                     game_choice = "obstacle_pvp"
                 elif event.key == pygame.K_4:
-                    game_choice = "increase_speed_pvc"
+                    game_choice = "original_pvp"
                 elif event.key == pygame.K_5:
-                    game_choice = "duplicate_ball_pvc"
+                    game_choice = "increase_speed_pvc"
                 elif event.key == pygame.K_6:
+                    game_choice = "duplicate_ball_pvc"
+                elif event.key == pygame.K_7:
                     game_choice = "obstacle_pvc"
+                elif event.key == pygame.K_8:
+                    game_choice = "original_pvc"
                 
                 if game_choice:
                     while True:
