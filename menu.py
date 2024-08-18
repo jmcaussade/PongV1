@@ -4,10 +4,11 @@ from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, scree
 def display_controls_pvp():
     controls_text = [
         "Controls for Player vs Player:",
-        "Player 1: Up Arrow / Down Arrow",
-        "Player 2: W (Up) / S (Down)",
+        "Player 1:  W (Up) / S (Down)",
+        "Player 2: Up Arrow / Down Arrow",
         "",
-        "Press SPACE to Start"
+        "Press SPACE to Start",
+        "Press ESC to Return to Menu"
     ]
 
     screen.fill(BLACK)
@@ -19,14 +20,26 @@ def display_controls_pvp():
         y_offset += 30
 
     pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return None
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    return "pvp" 
+                elif event.key == pygame.K_ESCAPE:
+                    return "menu"  
 
 def display_controls_pvc():
     controls_text = [
         "Controls for Player vs Computer:",
-        "Player 1: Up Arrow / Down Arrow",
+        "Player 1:  W (Up) / S (Down)",
         "Computer: Automatically controlled",
         "",
-        "Press SPACE to Start"
+        "Press SPACE to Start",
+        "Press ESC to Return to Menu"
     ]
 
     screen.fill(BLACK)
@@ -38,6 +51,19 @@ def display_controls_pvc():
         y_offset += 30
 
     pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return None
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    return "pvc"
+                elif event.key == pygame.K_ESCAPE:
+                    return "menu"
+
+
 
 def get_points_limit():
     input_box = pygame.Rect(WIDTH // 2 - 70, HEIGHT // 2 + 20, 140, 40)
@@ -93,10 +119,16 @@ def get_points_limit():
 
 def display_menu():
     screen.fill(BLACK)
+    
+    # Render title
     title = font40.render("Pong Game", True, WHITE)
-    title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 4))
+    title_rect = title.get_rect(center=(WIDTH // 2, HEIGHT // 4 -50))
+    
+    # Render instructions
+    instructions = font20.render("Press the number key (1-7) to select an option:", True, WHITE)
+    instructions_rect = instructions.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 125))
 
-    # Adjusted y-coordinates to move options up
+    # Render menu options
     option1 = font20.render("1. Increase Speed Mode (Player vs Player)", True, WHITE)
     option1_rect = option1.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
 
@@ -119,6 +151,7 @@ def display_menu():
     option7_rect = option7.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 250))
 
     screen.blit(title, title_rect)
+    screen.blit(instructions, instructions_rect)
     screen.blit(option1, option1_rect)
     screen.blit(option2, option2_rect)
     screen.blit(option3, option3_rect)
@@ -128,6 +161,7 @@ def display_menu():
     screen.blit(option7, option7_rect)
 
     pygame.display.flip()
+
 
 def menu():
     while True:
@@ -143,40 +177,33 @@ def menu():
             if event.type == pygame.KEYDOWN:
                 # pvp = Player VS Player
                 # pvc = Player VS Computer
-                if event.key == pygame.K_1:
+                if event.key == pygame.K_1 or event.key == pygame.K_KP1:
                     game_choice = "increase_speed_pvp"
-                elif event.key == pygame.K_2:
+                elif event.key == pygame.K_2 or event.key == pygame.K_KP2:
                     game_choice = "duplicate_ball_pvp"
-                elif event.key == pygame.K_3:
+                elif event.key == pygame.K_3 or event.key == pygame.K_KP3:
                     game_choice = "obstacle_pvp"
-                elif event.key == pygame.K_4:
+                elif event.key == pygame.K_4 or event.key == pygame.K_KP4:
                     game_choice = "increase_speed_pvc"
-                elif event.key == pygame.K_5:
+                elif event.key == pygame.K_5 or event.key == pygame.K_KP5:
                     game_choice = "duplicate_ball_pvc"
-                elif event.key == pygame.K_6:
+                elif event.key == pygame.K_6 or event.key == pygame.K_KP6:
                     game_choice = "obstacle_pvc"
-                elif event.key == pygame.K_7:
+                elif event.key == pygame.K_7 or event.key == pygame.K_KP7:
                     pygame.quit()
                     return None
                 
                 if game_choice:
                     while True:
                         if "pvp" in game_choice:
-                            display_controls_pvp()
+                            return_value = display_controls_pvp()
                         else:
-                            display_controls_pvc()
+                            return_value = display_controls_pvc()
                         
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                return None
-                            if event.type == pygame.KEYDOWN:
-                                if event.key == pygame.K_SPACE:
-                                    points_limit = get_points_limit()
-                                    return game_choice, points_limit
-                                elif event.key == pygame.K_ESCAPE:
-                                    break
+                        if return_value == "menu":
+                            break
+                        elif return_value in ["pvp", "pvc"]:
+                            points_limit = get_points_limit()
+                            return game_choice, points_limit
 
         clock.tick(FPS)
-
-
