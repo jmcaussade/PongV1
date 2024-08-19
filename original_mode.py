@@ -59,6 +59,8 @@ def original_mode(game_points, player_vs_computer):
             geek2Score += 1
         if point:
             ball.reset()
+            player1_striker.reset()
+            player2_striker.reset()
 
         # Display everything on the screen
         player1_striker.display()

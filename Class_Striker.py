@@ -30,6 +30,11 @@ class Striker:
         textRect = text.get_rect()
         textRect.center = (x, y)
         screen.blit(text, textRect)
+    
+    def reset(self):
+        # Set the striker's position to the middle of the screen vertically
+        self.posy = HEIGHT // 2 - self.height // 2
+        self.geekRect = pygame.Rect(self.posx, self.posy, self.width, self.height)
 
     def getRect(self):
         return self.geekRect
