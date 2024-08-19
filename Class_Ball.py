@@ -15,7 +15,7 @@ class Ball:
         self.initial_speed = speed
         self.color = color
         self.xFac = 1
-        self.yFac = -1
+        self.yFac = 0  # Start the ball moving horizontally
         self.ball = pygame.draw.circle(screen, self.color, (self.posx, self.posy), self.radius)
         self.firstTime = True
         self.hit_count = 0
