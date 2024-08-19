@@ -8,11 +8,11 @@ def original_mode(game_points, player_vs_computer):
     running = True
     ball_speed = 25
     # Initialize the strikers
-    player1_striker = Striker(20, 0, 10, 100, 10, GREEN)
+    player1_striker = Striker(20, 200, 10, 100, 10, GREEN)
     if player_vs_computer:
-        player2_striker = ComputerStriker(WIDTH - 30, 0, 10, 100, 10, GREEN)
+        player2_striker = ComputerStriker(WIDTH - 30, 200, 10, 100, 10, GREEN)
     else:
-        player2_striker = Striker(WIDTH - 30, 0, 10, 100, 10, GREEN)
+        player2_striker = Striker(WIDTH - 30, 200, 10, 100, 10, GREEN)
 
     # Initialize the ball with the specified initial velocity
     ball = Ball(WIDTH // 2, HEIGHT // 2, 7, ball_speed, WHITE)

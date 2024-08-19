@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from game_setup import WIDTH, HEIGHT, screen
 
@@ -52,11 +53,19 @@ class Ball:
 
 
     def reset(self):
+        # Start the ball in the middle of the screen
         self.posx = WIDTH // 2
         self.posy = HEIGHT // 2
-        self.xFac *= -1
+        
+        # Set the initial direction to be semi-horizontal
+        self.xFac = random.choice([-1, 1])  # Randomly choose direction to start
+        self.yFac = random.uniform(-0.2, 0.2)  # Semi-horizontal: smaller yFac values for less vertical movement
+
+
+        self.speed = self.speed
+
         self.firstTime = True
-        self.speed = self.initial_speed
+        self.hit_count = 0
 
     def hit(self, striker=None, increase_speed=False):
         if striker:
