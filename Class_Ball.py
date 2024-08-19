@@ -44,7 +44,7 @@ class Ball:
         self.firstTime = True
         self.speed = self.initial_speed
 
-    def hit(self, striker=None, increase_speed=False):
+    def hit(self, striker=None, increase_speed=False, vertical=True):
         if striker:
             # Calculate where the ball hit the striker
             striker_center = striker.posy + striker.height / 2
@@ -55,19 +55,18 @@ class Ball:
             angle_change = impact_point * max_angle
 
             # Adjust the ball's direction based on the angle
-            if self.xFac > 0:
-                self.xFac = -1
-            else:
-                self.xFac = 1
-
-            self.yFac = angle_change
+            self.xFac *= -1  # Reverse horizontal direction
+            self.yFac = angle_change  # Apply angle change to vertical direction
 
             if increase_speed:
                 self.speed += 1
         else:
-            # Natural rebound logic for obstacles
-            self.xFac *= -1
-            self.yFac *= 1  # Optional: Adjust yFac for a more natural bounce, if needed
+            if vertical:
+                # Natural rebound logic for vertical obstacles
+                self.xFac *= -1  # Reverse horizontal direction
+            else:
+                # Natural rebound logic for horizontal obstacles
+                self.yFac *= -1  # Reverse vertical direction
 
         self.hit_count += 1
 
