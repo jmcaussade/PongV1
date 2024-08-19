@@ -68,13 +68,11 @@ def display_controls_pvc():
 def get_points_limit():
     input_box = pygame.Rect(WIDTH // 2 - 70, HEIGHT // 2 + 20, 140, 40)
     color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
     color = color_inactive
     font = pygame.font.Font(None, 32)
-    txt_surface = font.render('0', True, color)
-    active = False
-    text = ''
-    points_limit = 5  # Default value
+    txt_surface = font.render('1', True, color)
+    text = '1'
+    points_limit = 1  # Default value
 
     while True:
         for event in pygame.event.get():
@@ -85,35 +83,47 @@ def get_points_limit():
                 if event.key == pygame.K_RETURN:
                     try:
                         points_limit = int(text)
-                        if 1 <= points_limit <= 20:
+                        if 1 <= points_limit <= 19:
                             return points_limit
                         else:
-                            text = ''  # Clear text if out of range
-                            txt_surface = font.render('Invalid. Enter a number between 1 and 20:', True, color)
+                            text = ''  
+                            txt_surface = font.render('Invalid. Enter a number between 1 and 20', True, color)
                     except ValueError:
-                        text = ''  # Clear text on invalid input
+                        text = ''  
                         txt_surface = font.render('Invalid. Enter a number between 1 and 20:', True, color)
                 if event.key == pygame.K_ESCAPE:
                     return None
                 if event.key == pygame.K_BACKSPACE:
                     text = text[:-1]
                 else:
-                    text += event.unicode
+                    if event.unicode.isdigit():
+                        text += event.unicode
+                        # Limit the length of the input to avoid excessive digits
+                        if len(text) > 2:
+                            text = text[:-1]
                 txt_surface = font.render(text, True, color)
         
         screen.fill(BLACK)
 
-        # Display the prompt message
-        prompt_surface = font.render('Enter how many points you want to play (1-20):', True, WHITE)
-        screen.blit(prompt_surface, (WIDTH // 2 - prompt_surface.get_width() // 2, HEIGHT // 2 - 100))
-
+        prompt_surface = font.render('Enter how many points you want to play (from 1 to 19):', True, WHITE)
+        prompt_rect = prompt_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
+        screen.blit(prompt_surface, prompt_rect)
+        
         width = max(200, txt_surface.get_width()+10)
         input_box.w = width
+        input_box.center = (WIDTH // 2, HEIGHT // 2 - 40)
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
         pygame.draw.rect(screen, color, input_box, 2)
+
+        instruction_surface = font.render('Press ENTER to confirm', True, WHITE)
+        instruction_rect = instruction_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 20))
+        screen.blit(instruction_surface, instruction_rect)
+
         pygame.display.flip()
 
         clock.tick(FPS)
+
+
 
 
 
