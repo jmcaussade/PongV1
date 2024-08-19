@@ -68,17 +68,15 @@ def obstacle_mode(game_points, player_vs_computer):
         else:
             player2_striker.update(player2YFac)
 
-        # Update the ball vertical objects
+        # Update the ball for vertical objects
         for obstacle in vertical_obstacles:
             if pygame.Rect.colliderect(ball.getRect(), obstacle.getRect()):
-                #normal = calculate_normal(ball.getRect(), obstacle.getRect())
-                ball.hit()
+                ball.handle_vertical_object_collision(ball, obstacle)
 
-        # Update the ball horizontal objects
+        # Update the ball for horizontal objects
         for obstacle in horizontal_obstacles:
             if pygame.Rect.colliderect(ball.getRect(), obstacle.getRect()):
-                #normal = calculate_normal(ball.getRect(), obstacle.getRect())
-                ball.hit(vertical=False)
+                ball.handle_horizontal_object_collision(ball, obstacle)
 
         # Check for collision with player1's striker
         if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):
