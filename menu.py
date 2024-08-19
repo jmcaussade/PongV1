@@ -125,8 +125,6 @@ def get_points_limit():
 
 
 
-
-
 def display_menu():
     screen.fill(BLACK)
     
@@ -148,17 +146,23 @@ def display_menu():
     option3 = font20.render("3. Obstacle Mode (Player vs Player)", True, WHITE)
     option3_rect = option3.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
 
-    option4 = font20.render("4. Increase Speed Mode (Player vs Computer)", True, WHITE)
+    option4 = font20.render("4. Original Mode (Player vs Player)", True, WHITE)
     option4_rect = option4.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
 
-    option5 = font20.render("5. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
+    option5 = font20.render("5. Increase Speed Mode (Player vs Computer)", True, WHITE)
     option5_rect = option5.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 150))
 
-    option6 = font20.render("6. Obstacle Mode (Player vs Computer)", True, WHITE)
+    option6 = font20.render("6. Duplicate Ball Mode (Player vs Computer)", True, WHITE)
     option6_rect = option6.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 200))
 
-    option7 = font20.render("7. Exit Game", True, WHITE)
+    option7 = font20.render("7. Obstacle Mode (Player vs Computer)", True, WHITE)
     option7_rect = option7.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 250))
+
+    option8 = font20.render("8. Original Mode (Player vs Computer)", True, WHITE)
+    option8_rect = option8.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 300))
+
+    option9 = font20.render("9. Exit Game", True, WHITE)
+    option9_rect = option9.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 350))
 
     screen.blit(title, title_rect)
     screen.blit(instructions, instructions_rect)
@@ -169,6 +173,8 @@ def display_menu():
     screen.blit(option5, option5_rect)
     screen.blit(option6, option6_rect)
     screen.blit(option7, option7_rect)
+    screen.blit(option8, option8_rect)
+    screen.blit(option9, option9_rect)
 
     pygame.display.flip()
 
@@ -187,21 +193,26 @@ def menu():
             if event.type == pygame.KEYDOWN:
                 # pvp = Player VS Player
                 # pvc = Player VS Computer
-                if event.key == pygame.K_1 or event.key == pygame.K_KP1:
-                    game_choice = "increase_speed_pvp"
-                elif event.key == pygame.K_2 or event.key == pygame.K_KP2:
-                    game_choice = "duplicate_ball_pvp"
-                elif event.key == pygame.K_3 or event.key == pygame.K_KP3:
-                    game_choice = "obstacle_pvp"
-                elif event.key == pygame.K_4 or event.key == pygame.K_KP4:
-                    game_choice = "increase_speed_pvc"
-                elif event.key == pygame.K_5 or event.key == pygame.K_KP5:
-                    game_choice = "duplicate_ball_pvc"
-                elif event.key == pygame.K_6 or event.key == pygame.K_KP6:
-                    game_choice = "obstacle_pvc"
-                elif event.key == pygame.K_7 or event.key == pygame.K_KP7:
-                    pygame.quit()
-                    return None
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        game_choice = "increase_speed_pvp"
+                    elif event.key == pygame.K_2:
+                        game_choice = "duplicate_ball_pvp"
+                    elif event.key == pygame.K_3:
+                        game_choice = "obstacle_pvp"
+                    elif event.key == pygame.K_4:
+                        game_choice = "original_pvp"
+                    elif event.key == pygame.K_5:
+                        game_choice = "increase_speed_pvc"
+                    elif event.key == pygame.K_6:
+                        game_choice = "duplicate_ball_pvc"
+                    elif event.key == pygame.K_7:
+                        game_choice = "obstacle_pvc"
+                    elif event.key == pygame.K_8:
+                        game_choice = "original_pvc"
+                    elif event.key == pygame.K_9 or event.key == pygame.K_KP9:
+                        pygame.quit()
+                        return None
                 
                 if game_choice:
                     while True:
