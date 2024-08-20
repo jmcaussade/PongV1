@@ -46,7 +46,7 @@ def duplicate_ball_mode(game_points, player_vs_computer):
         # Update the players' movements
         player1_striker.update(player1YFac)
         if player_vs_computer:
-            player2_striker.update(ball)
+            player2_striker.update(balls)
         else:
             player2_striker.update(player2YFac)
 

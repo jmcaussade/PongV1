@@ -52,8 +52,7 @@ class Ball:
             return 0
 
 
-    def reset(self):
-        # Start the ball in the middle of the screen
+    def reset(self, increase_speed=False):
         self.posx = WIDTH // 2
         self.posy = HEIGHT // 2
         
@@ -61,11 +60,14 @@ class Ball:
         self.xFac = random.choice([-1, 1])  # Randomly choose direction to start
         self.yFac = random.uniform(-0.2, 0.2)  # Semi-horizontal: smaller yFac values for less vertical movement
 
-
-        self.speed = self.speed
-
         self.firstTime = True
         self.hit_count = 0
+        if increase_speed:
+            self.speed = 7
+        else:
+            self.speed = self.speed
+
+                
 
     def hit(self, striker=None, increase_speed=False):
         if striker:

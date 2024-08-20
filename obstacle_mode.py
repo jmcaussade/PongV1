@@ -25,7 +25,7 @@ def obstacle_mode(game_points, player_vs_computer):
     else:
         player2_striker = Striker(WIDTH - 30, 200, 10, 100, 10, GREEN)
 
-    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 12, WHITE)
+    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 15, WHITE)
 
     vertical_obstacles = [
         Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, WHITE),
@@ -64,7 +64,7 @@ def obstacle_mode(game_points, player_vs_computer):
         # Update the strikers
         player1_striker.update(player1YFac)
         if player_vs_computer:
-            player2_striker.update(ball)
+            player2_striker.update([ball])
         else:
             player2_striker.update(player2YFac)
 
@@ -91,6 +91,8 @@ def obstacle_mode(game_points, player_vs_computer):
             geek2Score += 1
         if point:
             ball.reset()
+            player1_striker.reset()
+            player2_striker.reset()
 
         # Draw everything
         for obstacle in vertical_obstacles:

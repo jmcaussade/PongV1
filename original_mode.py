@@ -42,8 +42,12 @@ def original_mode(game_points, player_vs_computer):
                 if event.key == pygame.K_w or event.key == pygame.K_s:
                     player1YFac = 0
 
+        # Update the players' movements
         player1_striker.update(player1YFac)
-        player2_striker.update(player2YFac if not player_vs_computer else ball)
+        if player_vs_computer:
+            player2_striker.update([ball])
+        else:
+            player2_striker.update(player2YFac)
 
         # Check for collision with strikers (without increasing speed)
         if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):
