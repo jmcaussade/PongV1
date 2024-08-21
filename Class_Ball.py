@@ -91,47 +91,47 @@ class Ball:
 
     def handle_vertical_object_collision(self, ball, obstacle):
         # Check collision with the top edge
-        if abs(ball.posy - obstacle.rect.top) < ball.radius:
+        if ball.posy - ball.radius < obstacle.rect.top and ball.posy + ball.radius > obstacle.rect.top:
             ball.yFac *= -1  # Reverse vertical direction
             ball.posy = obstacle.rect.top - ball.radius  # Reposition the ball above the obstacle
-        
+
         # Check collision with the bottom edge
-        elif abs(ball.posy - obstacle.rect.bottom) < ball.radius:
+        elif ball.posy + ball.radius > obstacle.rect.bottom and ball.posy - ball.radius < obstacle.rect.bottom:
             ball.yFac *= -1  # Reverse vertical direction
             ball.posy = obstacle.rect.bottom + ball.radius  # Reposition the ball below the obstacle
-        
+
         # Check collision with the left or right side
-        elif abs(ball.posx - obstacle.rect.left) < ball.radius or abs(ball.posx - obstacle.rect.right) < ball.radius:
+        elif ball.posx + ball.radius > obstacle.rect.left and ball.posx - ball.radius < obstacle.rect.left:
             ball.xFac *= -1  # Reverse horizontal direction
-            
-            # Introduce a small vertical adjustment to prevent getting stuck
-            adjustment = 0.1 * ball.yFac if ball.yFac != 0 else 0.1  # Small vertical movement
-            ball.posy += adjustment
-            
-            # Reposition the ball to the left or right of the obstacle
-            if ball.posx < obstacle.rect.centerx:
-                ball.posx = obstacle.rect.left - ball.radius
-            else:
-                ball.posx = obstacle.rect.right + ball.radius
+            ball.posx = obstacle.rect.left - ball.radius  # Reposition the ball to the left of the obstacle
+            ball.posy += 0.1 * ball.yFac  # Slight adjustment to prevent getting stuck
+
+        elif ball.posx - ball.radius < obstacle.rect.right and ball.posx + ball.radius > obstacle.rect.right:
+            ball.xFac *= -1  # Reverse horizontal direction
+            ball.posx = obstacle.rect.right + ball.radius  # Reposition the ball to the right of the obstacle
+            ball.posy += 0.1 * ball.yFac  # Slight adjustment to prevent getting stuck
 
 
     def handle_horizontal_object_collision(self, ball, obstacle):
         # Check collision with the left edge
-        if abs(ball.posx - obstacle.rect.left) < ball.radius:
+        if ball.posx - ball.radius < obstacle.rect.left and ball.posx + ball.radius > obstacle.rect.left:
             ball.xFac *= -1  # Reverse horizontal direction
             ball.posx = obstacle.rect.left - ball.radius  # Reposition the ball to the left of the obstacle
+
         # Check collision with the right edge
-        elif abs(ball.posx - obstacle.rect.right) < ball.radius:
+        elif ball.posx + ball.radius > obstacle.rect.right and ball.posx - ball.radius < obstacle.rect.right:
             ball.xFac *= -1  # Reverse horizontal direction
             ball.posx = obstacle.rect.right + ball.radius  # Reposition the ball to the right of the obstacle
+
         # Check collision with the top or bottom side
-        elif abs(ball.posy - obstacle.rect.top) < ball.radius or abs(ball.posy - obstacle.rect.bottom) < ball.radius:
+        elif ball.posy - ball.radius < obstacle.rect.top and ball.posy + ball.radius > obstacle.rect.top:
             ball.yFac *= -1  # Reverse vertical direction
-            # Reposition the ball above or below the obstacle
-            if ball.posy < obstacle.rect.centery:
-                ball.posy = obstacle.rect.top - ball.radius
-            else:
-                ball.posy = obstacle.rect.bottom + ball.radius
+            ball.posy = obstacle.rect.top - ball.radius  # Reposition the ball above the obstacle
+
+        elif ball.posy + ball.radius > obstacle.rect.bottom and ball.posy - ball.radius < obstacle.rect.bottom:
+            ball.yFac *= -1  # Reverse vertical direction
+            ball.posy = obstacle.rect.bottom + ball.radius  # Reposition the ball below the obstacle
+
 
 
     def getRect(self):
