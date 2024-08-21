@@ -3,9 +3,9 @@ from Class_Computer_Striker import ComputerStriker
 from Class_Striker import Striker
 from Class_Ball import Ball
 from Class_Object import Obstacle
-from menu import show_winner
+from menu import show_winner, display_countdown
 import math
-from game_setup import font20, font40, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
+from game_setup import font80, font40, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
 
 
 def obstacle_mode(game_points, player_vs_computer):
@@ -80,8 +80,10 @@ def obstacle_mode(game_points, player_vs_computer):
         point = ball.update()
         if point == -1:
             geek1Score += 1
+            display_countdown(3, font80, screen)
         elif point == 1:
             geek2Score += 1
+            display_countdown(3, font80, screen)
         if point:
             ball.reset()
             player1_striker.reset()
