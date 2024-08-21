@@ -5,7 +5,7 @@ from Class_Ball import Ball
 from Class_Object import Obstacle
 from menu import show_winner, display_countdown
 import math
-from game_setup import font80, font40, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
+from game_setup import font80, font150, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
 
 
 def obstacle_mode(game_points, player_vs_computer):
@@ -80,14 +80,14 @@ def obstacle_mode(game_points, player_vs_computer):
         point = ball.update()
         if point == -1:
             geek1Score += 1
-            display_countdown(3, font80, screen)
         elif point == 1:
             geek2Score += 1
-            display_countdown(3, font80, screen)
         if point:
-            ball.reset()
             player1_striker.reset()
             player2_striker.reset()
+            if geek1Score < game_points and geek2Score < game_points:
+                display_countdown(3, font150, screen, [player1_striker, player2_striker, ball] + vertical_obstacles + horizontal_obstacles)
+            ball.reset()
 
         # Draw everything
         for obstacle in vertical_obstacles:

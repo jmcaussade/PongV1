@@ -2,8 +2,8 @@ import pygame
 from Class_Computer_Striker import ComputerStriker
 from Class_Striker import Striker
 from Class_Ball import Ball
-from menu import show_winner
-from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
+from menu import show_winner, display_countdown
+from game_setup import font150, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
 def original_mode(game_points, player_vs_computer):
     running = True
@@ -63,9 +63,11 @@ def original_mode(game_points, player_vs_computer):
         elif point == 1:
             geek2Score += 1
         if point:
-            ball.reset()
             player1_striker.reset()
             player2_striker.reset()
+            if geek1Score < game_points and geek2Score < game_points:
+                display_countdown(3, font150, screen, [player1_striker, player2_striker, ball])
+            ball.reset()
 
         # Display everything on the screen
         player1_striker.display()

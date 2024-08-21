@@ -192,20 +192,26 @@ def show_winner(points_p1, points_p2):
 
     pygame.time.wait(2000)
 
-def display_countdown(duration, font, screen):
+def display_countdown(duration, font, screen, game_elements):
     # Capture the current screen
-    # captured_surface = screen.copy()
-    # screen.blit(captured_surface, (0, 0))
+    captured_surface = screen.copy()
 
     for i in range(duration, 0, -1):
-        screen.fill(BLACK)  # Clear the screen
-        text = font.render(str(i), True, WHITE)  # Render the countdown text
+        # Blit the captured surface (previous game state) onto the screen
+        screen.blit(captured_surface, (0, 0))
+
+        for element in game_elements:
+            element.display()
+        # Render the countdown text
+        text = font.render(str(i), True, WHITE)
         text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
         screen.blit(text, text_rect)
-        pygame.display.flip()  # Update the display
-        pygame.time.wait(1000)  # Wait for 1 second
-    screen.fill(BLACK)  # Clear the screen after countdown
-    pygame.display.flip()  # Update the display
+
+        # Update the display
+        pygame.display.flip()
+        
+        # Wait for 1 second
+        pygame.time.wait(1000)
 
 def menu():
     while True:
