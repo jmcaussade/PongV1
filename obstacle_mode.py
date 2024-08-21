@@ -5,7 +5,7 @@ from Class_Ball import Ball
 from Class_Object import Obstacle
 from menu import show_winner
 import math
-from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
+from game_setup import font20, font40, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
 
 
 def obstacle_mode(game_points, player_vs_computer):
@@ -18,16 +18,16 @@ def obstacle_mode(game_points, player_vs_computer):
     else:
         player2_striker = Striker(WIDTH - 30, 200, 10, 100, 10, GREEN)
 
-    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 15, WHITE)
+    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 12, WHITE)
 
     vertical_obstacles = [
-        Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, WHITE),
-        Obstacle(WIDTH // 2, HEIGHT // 2, 20, 100, WHITE),
-        Obstacle(WIDTH - (WIDTH // 4), HEIGHT // 4, 20, 100, WHITE)
+        Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, PINK),
+        Obstacle(WIDTH // 2, HEIGHT // 2, 20, 100, PINK),
+        Obstacle(WIDTH - (WIDTH // 4), HEIGHT // 4, 20, 100, PINK)
     ]
 
     horizontal_obstacles = [
-        Obstacle(WIDTH // 2.5, HEIGHT - (HEIGHT // 6), 200, 20, WHITE)
+        Obstacle(WIDTH // 2.5, HEIGHT - (HEIGHT // 6), 200, 20, BLUE)
     ]
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
