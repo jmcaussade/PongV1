@@ -2,6 +2,7 @@ import pygame
 from Class_Computer_Striker import ComputerStriker
 from Class_Striker import Striker
 from Class_Ball import Ball
+from menu import show_winner
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
 def duplicate_ball_mode(game_points, player_vs_computer):
@@ -88,4 +89,5 @@ def duplicate_ball_mode(game_points, player_vs_computer):
         pygame.display.update()
         clock.tick(FPS)
 
+    show_winner(geek1Score, geek2Score)
     return None
