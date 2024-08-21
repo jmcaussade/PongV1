@@ -9,7 +9,7 @@ point_sound = pygame.mixer.Sound("sounds/point.mp3")
 point_sound.set_volume(0.5)
 def original_mode(game_points, player_vs_computer):
     running = True
-    ball_speed = 20
+    ball_speed = 16
     # Initialize the strikers
     player1_striker = Striker(20, HEIGHT // 2 - 52, 10, 100, 10, GREEN)
     if player_vs_computer:
