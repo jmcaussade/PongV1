@@ -6,14 +6,14 @@ from Class_Object import Obstacle
 import math
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
-def calculate_normal(ball_rect, object_rect):
-    # Calculate the normal vector for natural rebound off obstacles
-    ball_center = (ball_rect.centerx, ball_rect.centery)
-    object_center = (object_rect.centerx, object_rect.centery)
-    normal = (ball_center[0] - object_center[0], ball_center[1] - object_center[1])
-    length = math.sqrt(normal[0]**2 + normal[1]**2)
-    normal = (normal[0] / length, normal[1] / length)
-    return normal
+# def calculate_normal(ball_rect, object_rect):
+#     # Calculate the normal vector for natural rebound off obstacles
+#     ball_center = (ball_rect.centerx, ball_rect.centery)
+#     object_center = (object_rect.centerx, object_rect.centery)
+#     normal = (ball_center[0] - object_center[0], ball_center[1] - object_center[1])
+#     length = math.sqrt(normal[0]**2 + normal[1]**2)
+#     normal = (normal[0] / length, normal[1] / length)
+#     return normal
 
 def obstacle_mode(game_points, player_vs_computer):
     running = True
@@ -39,7 +39,7 @@ def obstacle_mode(game_points, player_vs_computer):
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
 
-    while geek1Score <= game_points and geek2Score <= game_points:
+    while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

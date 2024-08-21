@@ -21,7 +21,7 @@ def duplicate_ball_mode(game_points, player_vs_computer):
 
     balls = [ball]
 
-    while geek1Score <= game_points and geek2Score <= game_points:
+    while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
