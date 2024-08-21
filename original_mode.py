@@ -7,7 +7,7 @@ from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, scree
 
 def original_mode(game_points, player_vs_computer):
     running = True
-    ball_speed = 25
+    ball_speed = 20
     # Initialize the strikers
     player1_striker = Striker(20, 200, 10, 100, 10, GREEN)
     if player_vs_computer:
