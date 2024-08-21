@@ -24,6 +24,10 @@ def increase_speed_mode(game_points, player_vs_computer):
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
 
+    # Display countdown before the game starts
+    screen.fill(BLACK)
+    display_countdown(3, font150, screen, [player1_striker, player2_striker, ball])
+    
     while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():

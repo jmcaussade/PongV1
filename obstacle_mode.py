@@ -21,7 +21,7 @@ def obstacle_mode(game_points, player_vs_computer):
     else:
         player2_striker = Striker(WIDTH - 30, HEIGHT // 2 - 52, 10, 100, 10, GREEN)
 
-    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 12, WHITE)
+    ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 11, WHITE)
 
     vertical_obstacles = [
         Obstacle(WIDTH // 4, HEIGHT // 4, 20, 100, PINK),
@@ -34,6 +34,10 @@ def obstacle_mode(game_points, player_vs_computer):
     ]
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
+
+    # Display countdown before the game starts
+    screen.fill(BLACK)
+    display_countdown(3, font150, screen, [player1_striker, player2_striker, ball] + vertical_obstacles + horizontal_obstacles)
 
     while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
@@ -92,6 +96,7 @@ def obstacle_mode(game_points, player_vs_computer):
             if geek1Score < game_points and geek2Score < game_points:
                 display_countdown(3, font150, screen, [player1_striker, player2_striker, ball] + vertical_obstacles + horizontal_obstacles)
             ball.reset()
+            print(f"Ball reset: xFac={ball.xFac}, yFac={ball.yFac}")
 
         # Draw everything
         for obstacle in vertical_obstacles:

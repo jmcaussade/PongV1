@@ -18,7 +18,7 @@ class Ball:
         self.initial_speed = speed
         self.color = color
         self.xFac = 1
-        self.yFac = 0  # Start the ball moving horizontally
+        self.yFac = 0.01  # Start the ball moving horizontally
         self.ball = pygame.draw.circle(screen, self.color, (self.posx, self.posy), self.radius)
         self.firstTime = True
         self.hit_count = 0
@@ -43,7 +43,7 @@ class Ball:
             self.posy = HEIGHT - self.radius  # Prevent the ball from going out of bounds
         
         # Introduce a small vertical adjustment if the ball is almost moving horizontally
-        if abs(self.yFac) < 0.1:
+        if abs(self.yFac) < 0.02:
             self.yFac = 0.1 * (1 if self.yFac > 0 else -1)  # Ensure it moves vertically
         
         # Check for scoring
@@ -63,7 +63,7 @@ class Ball:
         
         # Set the initial direction to be semi-horizontal
         self.xFac = random.choice([-1, 1])  # Randomly choose direction to start
-        self.yFac = random.uniform(-0.1, 0.1)  # Semi-horizontal: smaller yFac values for less vertical movement
+        self.yFac = random.uniform(0.01, 0.1)  # Semi-horizontal: smaller yFac values for less vertical movement
 
         self.firstTime = True
         self.hit_count = 0

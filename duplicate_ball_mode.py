@@ -2,8 +2,8 @@ import pygame
 from Class_Computer_Striker import ComputerStriker
 from Class_Striker import Striker
 from Class_Ball import Ball
-from menu import show_winner
-from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
+from menu import show_winner, display_countdown
+from game_setup import font150, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 pygame.mixer.init()
 point_sound = pygame.mixer.Sound("sounds/point.mp3")
 point_sound.set_volume(0.5)
@@ -23,6 +23,10 @@ def duplicate_ball_mode(game_points, player_vs_computer):
     player1YFac, player2YFac = 0, 0
 
     balls = [ball]
+
+    # Display countdown before the game starts
+    screen.fill(BLACK)
+    display_countdown(3, font150, screen, [player1_striker, player2_striker, ball])
 
     while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
