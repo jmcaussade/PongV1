@@ -9,11 +9,11 @@ def increase_speed_mode(game_points, player_vs_computer):
     running = True
 
     # Initialize the strikers
-    player1_striker = Striker(20, 200, 10, 100, 10, GREEN)
+    player1_striker = Striker(20, HEIGHT // 2 - 52, 10, 100, 10, GREEN)
     if player_vs_computer:
-        player2_striker = ComputerStriker(WIDTH - 30, 200, 10, 100, 10, GREEN)
+        player2_striker = ComputerStriker(WIDTH - 30, HEIGHT // 2 - 52, 10, 100, 10, GREEN)
     else:
-        player2_striker = Striker(WIDTH - 30, 200, 10, 100, 10, GREEN)
+        player2_striker = Striker(WIDTH - 30, HEIGHT // 2 - 52, 10, 100, 10, GREEN)
 
     ball = Ball(WIDTH // 2, HEIGHT // 2, 7, 7, WHITE)
 
