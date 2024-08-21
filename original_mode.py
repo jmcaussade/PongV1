@@ -20,7 +20,7 @@ def original_mode(game_points, player_vs_computer):
     geek1Score, geek2Score = 0, 0
     player1YFac, player2YFac = 0, 0
 
-    while geek1Score <= game_points and geek2Score <= game_points:
+    while geek1Score < game_points and geek2Score < game_points:
         screen.fill(BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -42,8 +42,12 @@ def original_mode(game_points, player_vs_computer):
                 if event.key == pygame.K_w or event.key == pygame.K_s:
                     player1YFac = 0
 
+        # Update the players' movements
         player1_striker.update(player1YFac)
-        player2_striker.update(player2YFac if not player_vs_computer else ball)
+        if player_vs_computer:
+            player2_striker.update([ball])
+        else:
+            player2_striker.update(player2YFac)
 
         # Check for collision with strikers (without increasing speed)
         if pygame.Rect.colliderect(ball.getRect(), player1_striker.getRect()):

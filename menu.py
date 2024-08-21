@@ -83,7 +83,7 @@ def get_points_limit():
                 if event.key == pygame.K_RETURN:
                     try:
                         points_limit = int(text)
-                        if 1 <= points_limit <= 19:
+                        if 1 <= points_limit <= 20:
                             return points_limit
                         else:
                             text = ''  
@@ -105,7 +105,7 @@ def get_points_limit():
         
         screen.fill(BLACK)
 
-        prompt_surface = font.render('Enter how many points you want to play (from 1 to 19):', True, WHITE)
+        prompt_surface = font.render('Enter how many points you want to play (from 1 to 20):', True, WHITE)
         prompt_rect = prompt_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
         screen.blit(prompt_surface, prompt_rect)
         
