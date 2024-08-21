@@ -7,6 +7,8 @@ from game_setup import WIDTH, HEIGHT, screen
 import pygame
 import math
 
+
+pygame.mixer.init()
 class Ball:
     def __init__(self, posx, posy, radius, speed, color):
         self.posx = posx
@@ -20,6 +22,9 @@ class Ball:
         self.ball = pygame.draw.circle(screen, self.color, (self.posx, self.posy), self.radius)
         self.firstTime = True
         self.hit_count = 0
+
+        self.hit_sound1 = pygame.mixer.Sound("sounds/hit1.wav")
+        self.hit_sound2 = pygame.mixer.Sound("sounds/hit2.wav")
 
     def display(self):
         self.ball = pygame.draw.circle(screen, self.color, (self.posx, self.posy), self.radius)
@@ -86,6 +91,10 @@ class Ball:
             if increase_speed:
                 self.speed += 1
 
+            if striker.posx < WIDTH // 2:
+                self.hit_sound1.play()  # Sound for the left striker
+            else:
+                self.hit_sound2.play()  # Sound for the right striker
         self.hit_count += 1
 
 

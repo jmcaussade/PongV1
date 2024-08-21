@@ -5,7 +5,9 @@ from cx_Freeze import Executable
 executables = [Executable("main.py")]
 
 # Include any additional files or directories (e.g., assets) if they exist
-include_files = []  # Add your files or directories here
+include_files = [
+    ("sounds","sounds")
+]  # Add your files or directories here
 
 # Packages your game uses
 packages = [

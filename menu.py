@@ -1,6 +1,14 @@
 import pygame
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
 
+
+pygame.mixer.init()
+
+countdown_sound = pygame.mixer.Sound("sounds/countdown.mp3")
+menu_sound = pygame.mixer.Sound("sounds/menu_music.mp3")
+select_sound = pygame.mixer.Sound("sounds/selected.mp3")
+select_sound.set_volume(0.3)
+
 def display_controls_pvp():
     controls_text = [
         "Controls for Player vs Player:",
@@ -27,6 +35,7 @@ def display_controls_pvp():
                 pygame.quit()
                 return None
             if event.type == pygame.KEYDOWN:
+                select_sound.play()
                 if event.key == pygame.K_SPACE:
                     return "pvp" 
                 elif event.key == pygame.K_ESCAPE:
@@ -58,6 +67,7 @@ def display_controls_pvc():
                 pygame.quit()
                 return None
             if event.type == pygame.KEYDOWN:
+                select_sound.play()
                 if event.key == pygame.K_SPACE:
                     return "pvc"
                 elif event.key == pygame.K_ESCAPE:
@@ -195,7 +205,7 @@ def show_winner(points_p1, points_p2):
 def display_countdown(duration, font, screen, game_elements):
     # Capture the current screen
     captured_surface = screen.copy()
-
+    countdown_sound.play()
     for i in range(duration, 0, -1):
         # Blit the captured surface (previous game state) onto the screen
         screen.blit(captured_surface, (0, 0))
@@ -214,6 +224,7 @@ def display_countdown(duration, font, screen, game_elements):
         pygame.time.wait(1000)
 
 def menu():
+    menu_sound.play(-1)
     while True:
         display_menu()
 
@@ -225,6 +236,7 @@ def menu():
                 return None
 
             if event.type == pygame.KEYDOWN:
+                select_sound.play()
                 # pvp = Player VS Player
                 # pvc = Player VS Computer
                 if event.type == pygame.KEYDOWN:
@@ -259,6 +271,7 @@ def menu():
                             break
                         elif return_value in ["pvp", "pvc"]:
                             points_limit = get_points_limit()
+                            menu_sound.stop() 
                             return game_choice, points_limit
 
         clock.tick(FPS)

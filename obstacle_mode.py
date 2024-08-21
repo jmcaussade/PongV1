@@ -7,6 +7,9 @@ from menu import show_winner, display_countdown
 import math
 from game_setup import font80, font150, BLACK, WHITE, GREEN, PINK, BLUE, WIDTH, HEIGHT, screen, clock, FPS
 
+pygame.mixer.init()
+point_sound = pygame.mixer.Sound("sounds/point.mp3")
+point_sound.set_volume(0.5)
 
 def obstacle_mode(game_points, player_vs_computer):
     running = True
@@ -83,6 +86,7 @@ def obstacle_mode(game_points, player_vs_computer):
         elif point == 1:
             geek2Score += 1
         if point:
+            point_sound.play()
             player1_striker.reset()
             player2_striker.reset()
             if geek1Score < game_points and geek2Score < game_points:
