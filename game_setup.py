@@ -5,6 +5,10 @@ pygame.init()
 # Font that is used to render the text
 font20 = pygame.font.Font('freesansbold.ttf', 20)
 font40 = pygame.font.Font('freesansbold.ttf', 40)
+font80 = pygame.font.Font('freesansbold.ttf', 80)
+font150 = pygame.font.Font('freesansbold.ttf', 150)
+
+
 
 # RGB values of standard colors
 BLACK = (0, 0, 0)

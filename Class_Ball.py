@@ -58,7 +58,7 @@ class Ball:
         
         # Set the initial direction to be semi-horizontal
         self.xFac = random.choice([-1, 1])  # Randomly choose direction to start
-        self.yFac = random.uniform(-0.2, 0.2)  # Semi-horizontal: smaller yFac values for less vertical movement
+        self.yFac = random.uniform(-0.1, 0.1)  # Semi-horizontal: smaller yFac values for less vertical movement
 
         self.firstTime = True
         self.hit_count = 0
