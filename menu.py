@@ -179,6 +179,19 @@ def display_menu():
     pygame.display.flip()
 
 
+def show_winner(points_p1, points_p2):
+    screen.fill((0, 0, 0))  # Black background
+    if points_p1 > points_p2:
+        text = f"Player 1 Wins!"
+    else:
+        text = f"Player 2 Wins!"
+    text_surface = font40.render(text, True, (255, 255, 255))
+    text_rect = text_surface.get_rect(center=(WIDTH / 2, HEIGHT / 2))
+    screen.blit(text_surface, text_rect)
+    pygame.display.flip()
+
+    pygame.time.wait(2000)
+
 def menu():
     while True:
         display_menu()
