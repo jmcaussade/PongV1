@@ -4,7 +4,9 @@ from Class_Striker import Striker
 from Class_Ball import Ball
 from menu import show_winner, display_countdown
 from game_setup import font150, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
-
+pygame.mixer.init()
+point_sound = pygame.mixer.Sound("sounds/point.mp3")
+point_sound.set_volume(0.5)
 def original_mode(game_points, player_vs_computer):
     running = True
     ball_speed = 20
@@ -63,6 +65,7 @@ def original_mode(game_points, player_vs_computer):
         elif point == 1:
             geek2Score += 1
         if point:
+            point_sound.play()
             player1_striker.reset()
             player2_striker.reset()
             if geek1Score < game_points and geek2Score < game_points:

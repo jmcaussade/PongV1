@@ -4,7 +4,9 @@ from Class_Striker import Striker
 from Class_Ball import Ball
 from menu import show_winner
 from game_setup import font20, font40, BLACK, WHITE, GREEN, WIDTH, HEIGHT, screen, clock, FPS
-
+pygame.mixer.init()
+point_sound = pygame.mixer.Sound("sounds/point.mp3")
+point_sound.set_volume(0.5)
 def duplicate_ball_mode(game_points, player_vs_computer):
     running = True
 
@@ -65,6 +67,7 @@ def duplicate_ball_mode(game_points, player_vs_computer):
             elif point == 1:
                 geek2Score += 1
             if point:
+                point_sound.play()
                 ball.reset()
             if ball.hit_count >= 5:
                 ball.hit_count = 0
