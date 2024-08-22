@@ -72,9 +72,6 @@ def display_controls_pvc():
                     return "pvc"
                 elif event.key == pygame.K_ESCAPE:
                     return "menu"
-
-
-
 def get_points_limit():
     input_box = pygame.Rect(WIDTH // 2 - 70, HEIGHT // 2 + 20, 140, 40)
     color_inactive = pygame.Color('lightskyblue3')
@@ -101,14 +98,13 @@ def get_points_limit():
                     except ValueError:
                         text = ''  
                         txt_surface = font.render('Invalid. Enter a number between 1 and 20:', True, color)
-                if event.key == pygame.K_ESCAPE:
-                    return None
-                if event.key == pygame.K_BACKSPACE:
+                elif event.key == pygame.K_ESCAPE:
+                    return "menu"  # Devuelve "menu" en lugar de None
+                elif event.key == pygame.K_BACKSPACE:
                     text = text[:-1]
                 else:
                     if event.unicode.isdigit():
                         text += event.unicode
-                        # Limit the length of the input to avoid excessive digits
                         if len(text) > 2:
                             text = text[:-1]
                 txt_surface = font.render(text, True, color)
@@ -222,7 +218,6 @@ def display_countdown(duration, font, screen, game_elements):
         
         # Wait for 1 second
         pygame.time.wait(1000)
-
 def menu():
     menu_sound.play(-1)
     while True:
@@ -237,8 +232,6 @@ def menu():
 
             if event.type == pygame.KEYDOWN:
                 select_sound.play()
-                # pvp = Player VS Player
-                # pvc = Player VS Computer
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         game_choice = "increase_speed_pvp"
@@ -271,7 +264,10 @@ def menu():
                             break
                         elif return_value in ["pvp", "pvc"]:
                             points_limit = get_points_limit()
-                            menu_sound.stop() 
-                            return game_choice, points_limit
+                            if points_limit == "menu":
+                                break
+                            else:
+                                menu_sound.stop() 
+                                return game_choice, points_limit
 
         clock.tick(FPS)
